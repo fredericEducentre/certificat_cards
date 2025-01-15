@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartes de Certificat</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 70mm;
+            height: 99mm;
+            background-color: white;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .card .sub-title {
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .card .boxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .box {
+            width: 15px;
+            height: 15px;
+            border: 1px solid #000;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div id="cards-container"></div>
+
+    <script>
+        // JSON à récupérer
+        const data = {
+            "certificat": {
+                "connaissances": 8,
+                "pratique": 8
+            }
+        };
+
+        // Fonction pour générer les cartes
+        function createCard(title, connaissanceCount, pratiqueCount) {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            
+            // Titre de la carte
+            const cardTitle = document.createElement('h3');
+            cardTitle.innerText = title;
+            card.appendChild(cardTitle);
+            
+            // Conteneur pour Connaissances et Pratique
+            const flexContainer = document.createElement('div');
+            flexContainer.classList.add('flex-container');
+            
+            // Connaissances
+            const knowledgeContainer = document.createElement('div');
+            knowledgeContainer.classList.add('sub-title');
+            knowledgeContainer.innerText = 'Connaissances';
+            const knowledgeBoxes = document.createElement('div');
+            knowledgeBoxes.classList.add('boxes');
+            for (let i = 0; i < 29; i++) {
+                const box = document.createElement('div');
+                box.classList.add('box');
+                knowledgeBoxes.appendChild(box);
+            }
+            knowledgeContainer.appendChild(knowledgeBoxes);
+            flexContainer.appendChild(knowledgeContainer);
+            
+            // Pratique
+            const practiceContainer = document.createElement('div');
+            practiceContainer.classList.add('sub-title');
+            practiceContainer.innerText = 'Pratique';
+            const practiceBoxes = document.createElement('div');
+            practiceBoxes.classList.add('boxes');
+            for (let i = 0; i < 29; i++) {
+                const box = document.createElement('div');
+                box.classList.add('box');
+                practiceBoxes.appendChild(box);
+            }
+            practiceContainer.appendChild(practiceBoxes);
+            flexContainer.appendChild(practiceContainer);
+
+            card.appendChild(flexContainer);
+            return card;
+        }
+
+        // Fonction pour afficher les cartes
+        function displayCards() {
+            const container = document.getElementById('cards-container');
+            
+            // Ajouter 11 cartes avec les informations du JSON
+            for (let i = 0; i < 11; i++) {
+                const card = createCard(
+                    'Certificat',
+                    data.certificat.connaissances,
+                    data.certificat.pratique
+                );
+                container.appendChild(card);
+            }
+        }
+
+        // Appeler la fonction pour afficher les cartes au chargement de la page
+        window.onload = displayCards;
+    </script>
+</body>
+</html>
